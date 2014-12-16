@@ -7,7 +7,7 @@ module.exports = {
     },
 
     linkedin: {
-        url  : 'http://www.linkedin.com/countserv/count/share?format=json&url=',
+        url  : 'https://www.linkedin.com/countserv/count/share?format=json&url=',
         parse: function( res ) {
             return JSON.parse( res ).count / 1;
         }

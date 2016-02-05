@@ -142,7 +142,7 @@ Example: `./count-shares/php/main.php?url=http://www.google.com&networks=faceboo
 
 ##### url (required)
 
-`www.domain.com` and `domain.com` are different websites for Twitter and Odnoklassniki.
+`www.domain.com` and `domain.com` are different websites for Twitter and Odnoklassniki. `domain.com#anchor`, `domain.com?key=value` and `domain.com` are different websites too for all social networks.
 
 ##### networks
 

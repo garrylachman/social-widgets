@@ -5,7 +5,6 @@ Returns JSON with a number of shares for a URL.
 ```
 {
     "facebook": 5461703,
-    "twitter": 11876867,
     "vk": 2462,
     "odnoklassniki": 547,
     "pinterest": 60,
@@ -27,6 +26,8 @@ countShares.get( 'http://google.com', function( err, result ) {  } );
 
 `url`: {String} full URL. `www.domain.com` and `domain.com` are different websites for Twitter and Odnoklassniki.
 
+Twitter's old endpoint `http://urls.api.twitter.com/1/urls/count.json?url=` stopped work on November 20th, 2015, and according to <a href="https://twittercommunity.com/t/how-to-get-proper-twitter-share-count-for-a-url/53876/2">this post</a> there are no plans to replace it with anything in the short term.
+
 `callback( err, result )`: {Function} callback that will get the results and errors (if any)
 
-`networks`: (optional) {Array} or {String} available networks: facebook, twitter, linkedin, odnoklassniki, pinterest, vk (vkontakte). Need more? <a href="https://github.com/clexit/social-widgets">Contribute!</a>
+`networks`: (optional) {Array} or {String} available networks: facebook, linkedin, odnoklassniki, pinterest, vk (vkontakte). Need more? <a href="https://github.com/clexit/social-widgets">Contribute!</a>

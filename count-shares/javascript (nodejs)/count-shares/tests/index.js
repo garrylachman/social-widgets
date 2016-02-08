@@ -50,6 +50,7 @@ countShares.get('http://google.com', function( err, result ) {
 countShares.get('http://google.com', function( err, result ) {
     for ( var key in result ) {
         assert.ok( typeof result[ key ] === 'number' );
+        assert.ok( result[ key ] > 0 );
     }
 });
 

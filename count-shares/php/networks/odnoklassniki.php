@@ -2,7 +2,7 @@
 
 // www matters
 function get_counter_number__odnoklassniki( $url ) {
-    $CHECK_URL_PREFIX = 'http://www.odnoklassniki.ru/dk?st.cmd=extLike&uid=odklcnt0&ref=';
+    $CHECK_URL_PREFIX = 'https://connect.ok.ru/dk?st.cmd=extLike&uid=odklcnt0&ref=';
 
     $check_url = $CHECK_URL_PREFIX . $url;
 

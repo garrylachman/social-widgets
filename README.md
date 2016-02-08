@@ -66,7 +66,7 @@ Example: https://facebook.com/sharer/sharer.php?u=http://google.com
   </tr>
   <tr>
     <td>Odnoklassniki</td>
-    <td>http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl={{LINK}}</td>
+    <td>https://connect.ok.ru/dk?st.cmd=extLike&uid=odklcnt0&ref={{LINK}}</td>
     <td></td>
   </tr>
   <tr>

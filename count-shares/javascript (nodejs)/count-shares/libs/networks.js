@@ -14,7 +14,7 @@ module.exports = {
     },
 
     odnoklassniki: {
-        url  : 'http://www.odnoklassniki.ru/dk?st.cmd=extLike&uid=odklcnt0&ref=',
+        url  : 'https://connect.ok.ru/dk?st.cmd=extLike&uid=odklcnt0&ref=',
         parse: function( res ) {
             return res.match( /^ODKL\.updateCount\(\'odklcnt0\',\'(\d+)\'\);$/ )[ 1 ] / 1;
         }

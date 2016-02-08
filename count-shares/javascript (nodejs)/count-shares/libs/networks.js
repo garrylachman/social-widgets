@@ -27,12 +27,13 @@ module.exports = {
         }
     },
 
-    twitter: {
-        url  : 'http://urls.api.twitter.com/1/urls/count.json?url=',
-        parse: function( res ) {
-            return JSON.parse( res ).count / 1;
-        }
-    },
+    // https://twittercommunity.com/t/how-to-get-proper-twitter-share-count-for-a-url/53876/2
+    //twitter: {
+    //    url  : 'http://urls.api.twitter.com/1/urls/count.json?url=',
+    //    parse: function( res ) {
+    //        return JSON.parse( res ).count / 1;
+    //    }
+    //},
 
     vk: {
         url  : 'http://vk.com/share.php?act=count&url=',

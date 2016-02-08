@@ -20,22 +20,22 @@ countShares.get('http://google.com', function( err ) {
 
 
 // should handle incorrect spelling
-countShares.get('http://google.com', function( err, result ) {
+countShares.get('http://google.com', function( err ) {
     assert.ok( typeof err === 'string' );
-}, 'Twitdter');
+}, 'facebok');
 
 
 // should be case insensitive
 countShares.get('http://google.com', function( err, result ) {
-    assert.ok( typeof result.twitter !== 'undefined' );
-}, 'Twitter');
+    assert.ok( typeof result.facebook !== 'undefined' );
+}, 'Facebook');
 
 
 // should handle Arrays
 countShares.get('http://google.com', function( err, result ) {
-    assert.ok( typeof result.twitter !== 'undefined' );
     assert.ok( typeof result.facebook !== 'undefined' );
-}, [ 'Twitter', 'facebook' ]);
+    assert.ok( typeof result.vk !== 'undefined' );
+}, [ 'facebook', 'vk' ]);
 
 
 // should handle empty "networks" argument

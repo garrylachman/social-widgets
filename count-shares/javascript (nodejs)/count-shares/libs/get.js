@@ -65,7 +65,6 @@ function filterNetworks( networks, callback ) {
     }
 
     else if ( networks === undefined ) {
-        var validNetworks = [];
 
         for ( var key in NETWORKS ) {
             validNetworks.push( key );

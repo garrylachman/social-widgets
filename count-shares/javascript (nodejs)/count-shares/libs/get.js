@@ -20,7 +20,11 @@ module.exports = function( url, callback, networks ) {
     var requests = getRequests( url, networks );
 
     getBunch.getMulti(requests, function( results ) {
-        callback( null, parseResults(results) );
+        try {
+          callback( null, parseResults( results ) );
+        } catch(err){
+          callback( err, null );
+        }
         return;
     })
 }

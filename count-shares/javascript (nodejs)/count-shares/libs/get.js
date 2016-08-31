@@ -9,6 +9,11 @@ module.exports = function( conf, callback, networks ) {
         conf = { url: conf }
     }
 
+    if ( typeof conf !== 'object' ) {
+        console.error( 'ERROR: count-shares: conf is required' );
+        return { 'error': true, 'message': 'missing conf' };
+    }
+
     if ( typeof conf.url !== 'string' ) {
         console.error( 'ERROR: count-shares: url is required' );
         return { 'error': true, 'message': 'missing url' };

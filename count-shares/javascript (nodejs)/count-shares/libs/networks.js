@@ -1,42 +1,63 @@
 module.exports = {
     facebook: {
-        url  : 'http://graph.facebook.com/fql?q=SELECT%20url,%20normalized_url,%20share_count,%20like_count,%20comment_count,%20total_count,commentsbox_count,%20comments_fbid,%20click_count%20FROM%20link_stat%20WHERE%20url=',
+        url: function( conf ) {
+            // doc here : https://developers.facebook.com/docs/graph-api/reference/v2.7/url
+            var url = 'https://graph.facebook.com/v2.7/?id='+conf.url;
+            var accessToken = typeof conf.accessTokens === 'object' && typeof conf.accessTokens.fb === 'string' ? conf.accessTokens.fb : null;
+
+            if ( accessToken ) {
+                url += '&access_token='+accessToken;
+            }
+
+            return url;
+        },
         parse: function( res ) {
-            return JSON.parse( res ).data[ 0 ][ 'total_count' ] / 1;
+            var obj = JSON.parse( res );
+            return typeof obj.share === 'object' && typeof obj.share.share_count === 'number' ? obj.share.share_count / 1 : 0;
         }
     },
 
     linkedin: {
-        url  : 'https://www.linkedin.com/countserv/count/share?format=json&url=',
+        url: function( conf ) {
+            return 'https://www.linkedin.com/countserv/count/share?format=json&url='+conf.url;
+        },
         parse: function( res ) {
             return JSON.parse( res ).count / 1;
         }
     },
 
     odnoklassniki: {
-        url  : 'https://connect.ok.ru/dk?st.cmd=extLike&uid=odklcnt0&ref=',
+        url: function( conf ) {
+            return 'https://connect.ok.ru/dk?st.cmd=extLike&uid=odklcnt0&ref='+conf.url;
+        },
         parse: function( res ) {
             return res.match( /^ODKL\.updateCount\(\'odklcnt0\',\'(\d+)\'\);$/ )[ 1 ] / 1;
         }
     },
 
     pinterest: {
-        url : 'http://api.pinterest.com/v1/urls/count.json?url=',
+        url: function( conf ) {
+            return 'http://api.pinterest.com/v1/urls/count.json?url='+conf.url;
+        },
         parse: function( res ) {
             return JSON.parse(res.match(/receiveCount\((.*?)\)$/)[1]).count / 1;
         }
     },
 
     // https://twittercommunity.com/t/how-to-get-proper-twitter-share-count-for-a-url/53876/2
-    //twitter: {
-    //    url  : 'http://urls.api.twitter.com/1/urls/count.json?url=',
-    //    parse: function( res ) {
-    //        return JSON.parse( res ).count / 1;
-    //    }
-    //},
+    // twitter: {
+    //     url: function( conf ) {
+    //         return 'http://urls.api.twitter.com/1/urls/count.json?url='+conf.url;
+    //     },
+    //     parse: function( res ) {
+    //         return JSON.parse( res ).count / 1;
+    //     }
+    // },
 
     vk: {
-        url  : 'http://vk.com/share.php?act=count&url=',
+        url: function( conf ) {
+            return 'http://vk.com/share.php?act=count&url='+conf.url;
+        },
         parse: function( res ) {
             return res.match( /^VK\.Share\.count\(\d, (\d+)\);$/ )[ 1 ] / 1;
         }

@@ -17,14 +17,23 @@ Returns JSON with a number of shares for a URL.
 ```
 var countShares = require( 'count-shares' );
 
-countShares.get( 'http://google.com', function( err, result ) {  } );
+countShares.get( {
+    url: 'http://google.com',
+    accessTokens: {
+        fb: 'foobar'
+    }
+}, function( err, result ) {  } );
 ```
 
 ## Methods
 
-### get( url, callback[, networks] )
+### get( conf, callback[, networks] )
 
-`url`: {String} full URL. `www.domain.com` and `domain.com` are different websites for Twitter and Odnoklassniki.
+`conf`: {Object} An object defining config needed to make requests to different APIs.
+
+`conf.url`: {String} full URL. `www.domain.com` and `domain.com` are different websites for Twitter and Odnoklassniki.
+
+`conf.accessTokens.fb`: {String} a valid facebook access token
 
 Twitter's old endpoint `http://urls.api.twitter.com/1/urls/count.json?url=` stopped work on November 20th, 2015, and according to <a href="https://twittercommunity.com/t/how-to-get-proper-twitter-share-count-for-a-url/53876/2">this post</a> there are no plans to replace it with anything in the short term.
 

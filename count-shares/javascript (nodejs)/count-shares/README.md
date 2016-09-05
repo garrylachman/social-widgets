@@ -40,3 +40,19 @@ Twitter's old endpoint `http://urls.api.twitter.com/1/urls/count.json?url=` stop
 `callback( err, result )`: {Function} callback that will get the results and errors (if any)
 
 `networks`: (optional) {Array} or {String} available networks: facebook, linkedin, odnoklassniki, pinterest, vk (vkontakte). Need more? <a href="https://github.com/clexit/social-widgets">Contribute!</a>
+
+
+## Changelog
+
+### 2.0.0
+
+* Facebook API changed. `FACEBOOK_ACCESS_TOKEN` is now required (https://github.com/clexit/social-widgets/pull/10)
+
+### 1.1.1
+
+* Catch parse errors during result parsing process
+
+### 1.1.0
+
+* Twitter API is <a href="https://twittercommunity.com/t/how-to-get-proper-twitter-share-count-for-a-url/53876/2">deprecated</a>
+* Odnoklassniki API URL changed

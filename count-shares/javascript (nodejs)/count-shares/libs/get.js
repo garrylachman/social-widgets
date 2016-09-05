@@ -2,14 +2,30 @@ var getBunch = require( 'get-bunch' ),
     NETWORKS = require( './networks' );
 
 
-module.exports = function( url, callback, networks ) {
+module.exports = function( conf, callback, networks ) {
+    // NOTE: the first parameter of this function was a URL string until >1.1.1
+    // so we do this for backward compatibility reasons :
+    if (typeof conf === 'string') {
+        conf = { url: conf }
+    }
+
+    if ( typeof conf !== 'object' ) {
+        console.error( 'ERROR: count-shares: conf is required' );
+        return { 'error': true, 'message': 'missing conf' };
+    }
+
+    if ( typeof conf.url !== 'string' ) {
+        console.error( 'ERROR: count-shares: url is required' );
+        return { 'error': true, 'message': 'missing url' };
+    }
+
     if ( typeof callback !== 'function' ) {
         console.error( 'ERROR: count-shares: callback function is required' );
         return { 'error': true, 'message': 'missing callback' };
     }
 
-    if ( !isValidURL(url) ) {
-        invalidURL( url, callback );
+    if ( !isValidURL(conf.url) ) {
+        invalidURL( conf.url, callback );
         return;
     }
 
@@ -17,7 +33,7 @@ module.exports = function( url, callback, networks ) {
     if ( !networks ) return;
 
 
-    var requests = getRequests( url, networks );
+    var requests = getRequests( conf, networks );
 
     getBunch.getMulti(requests, function( results ) {
         try {
@@ -84,14 +100,14 @@ function filterNetworks( networks, callback ) {
 }
 
 
-function getRequests( url, networks ) {
+function getRequests( conf, networks ) {
     var requests = [];
 
     networks.map(function( network ) {
 
         requests.push({
             name: network,
-            url : NETWORKS[ network ].url + ( (network==='facebook')?"'"+url+"'":url ),
+            url : NETWORKS[ network ].url(conf),
             type: 'plain'
         });
     });

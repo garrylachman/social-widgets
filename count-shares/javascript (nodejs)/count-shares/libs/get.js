@@ -42,6 +42,10 @@ module.exports = function( conf, callback, networks ) {
           callback( err, null );
         }
         return;
+    }, {
+      headers: {
+        cookie: 'c_user=123423400' // workaround for facebook, need supply c_user in cookie, can be any number
+      }
     })
 }
 
@@ -104,14 +108,12 @@ function getRequests( conf, networks ) {
     var requests = [];
 
     networks.map(function( network ) {
-
         requests.push({
             name: network,
             url : NETWORKS[ network ].url(conf),
             type: 'plain'
         });
     });
-
     return requests;
 }
 

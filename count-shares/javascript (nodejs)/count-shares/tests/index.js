@@ -2,11 +2,6 @@ var assert      = require( 'assert' ),
     countShares = require( '../index' ),
     NETWORKS    = require( '../libs/networks' );
 
-if (typeof process.env.FACEBOOK_ACCESS_TOKEN === 'undefined') {
-  console.warn('WARN: You should set the FACEBOOK_ACCESS_TOKEN env variable to a valid access token in order for everything to work.');
-}
-
-
 // missing callback
 assert.ok( countShares.get().error );
 
@@ -44,10 +39,7 @@ countShares.get('http://google.com', function( err, result ) {
 
 // should handle empty "networks" argument
 countShares.get({
-  url: 'http://google.com',
-  accessTokens: {
-    fb: process.env.FACEBOOK_ACCESS_TOKEN
-  }
+  url: 'http://www.yahoo.com'
 }, function( err, result ) {
     for ( var key in NETWORKS ) {
         assert.ok( typeof result[ key ] !== undefined );
@@ -57,10 +49,7 @@ countShares.get({
 
 // should return correct data type
 countShares.get({
-  url: 'http://google.com',
-  accessTokens: {
-    fb: process.env.FACEBOOK_ACCESS_TOKEN
-  }
+  url: 'https://www.google.com'
 }, function( err, result ) {
     for ( var key in result ) {
         assert.ok( typeof result[ key ] === 'number' );

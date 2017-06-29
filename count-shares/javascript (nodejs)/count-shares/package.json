@@ -1,13 +1,13 @@
 {
   "name": "count-shares-my-fork",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Returns JSON with a number of shares for a URL (forked from count-shares with modifications)",
   "main": "index.js",
   "directories": {
     "test": "tests"
   },
   "dependencies": {
-    "requestretry": "^1.12.0",
+    "requestretry": "^1.12.0"
   },
   "devDependencies": {},
   "scripts": {

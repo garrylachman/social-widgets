@@ -36,8 +36,6 @@ module.exports = function( conf, callback, networks ) {
 
     var requests = getRequests( conf, networks );
 
-    console.log(requests);
-
     Promise.all(requests).then(results => {
       results = results.reduce((obj, item) => {
         obj[Object.keys(item)[0]] = Object.values(item)[0];

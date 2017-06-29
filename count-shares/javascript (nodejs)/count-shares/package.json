@@ -1,6 +1,6 @@
 {
   "name": "count-shares-my-fork",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Returns JSON with a number of shares for a URL (forked from count-shares with modifications)",
   "main": "index.js",
   "directories": {

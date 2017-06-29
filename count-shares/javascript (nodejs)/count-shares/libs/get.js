@@ -1,5 +1,6 @@
 var getBunch = require( 'get-bunch' ),
-    NETWORKS = require( './networks' );
+    NETWORKS = require( './networks' ),
+    request = require('requestretry');
 
 
 module.exports = function( conf, callback, networks ) {
@@ -35,18 +36,15 @@ module.exports = function( conf, callback, networks ) {
 
     var requests = getRequests( conf, networks );
 
-    getBunch.getMulti(requests, function( results ) {
-        try {
-          callback( null, parseResults( results ) );
-        } catch(err){
-          callback( err, null );
-        }
-        return;
-    }, {
-      headers: {
-        cookie: 'c_user=123423400' // workaround for facebook, need supply c_user in cookie, can be any number
-      }
-    })
+    console.log(requests);
+
+    Promise.all(requests).then(results => {
+      results = results.reduce((obj, item) => {
+        obj[Object.keys(item)[0]] = Object.values(item)[0];
+        return obj;
+      }, {});
+      callback( null, parseResults( results ) );
+    });
 }
 
 
@@ -105,16 +103,30 @@ function filterNetworks( networks, callback ) {
 
 
 function getRequests( conf, networks ) {
-    var requests = [];
+    var requests = Array.from(networks);
+    var requestDefaults = {
+      'timeout': 5*1000,
+      'maxAttempts': 3,
+      'retryDelay': 3000
+    };
 
-    networks.map(function( network ) {
-        requests.push({
-            name: network,
-            url : NETWORKS[ network ].url(conf),
-            type: 'plain'
-        });
+    var r = request.defaults(requestDefaults);
+
+    return networks.map(( network ) => {
+      return new Promise((resolve, reject) => {
+        r.get({
+          'url': NETWORKS[ network ].url(conf),
+          'headers': {
+            'cookie': 'c_user=123423400'
+          }
+        }, (err, res, body) => {
+          body = body ? body : "";
+          resolve({
+            [network]: body
+          });
+        })
+      });
     });
-    return requests;
 }
 
 
